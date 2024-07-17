@@ -1,0 +1,39 @@
+{% extends 'events/layout.html' %}
+
+{% block title %}EasyTicket{% endblock %}
+
+{% block content %}
+    <h2>View Event Details</h2>
+    <form method="get" action="{% url 'search_events' %}">
+        <input type="text" name="q" placeholder="Search for events...">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for value, display in categories %}
+                <option value="{{ value }}">{{ display }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="location" placeholder="Location">
+        <input type="date" name="date_from">
+        <input type="date" name="date_to">
+        <input type="number" name="price_min" placeholder="Min Price">
+        <input type="number" name="price_max" placeholder="Max Price">
+        <button type="submit">Search</button>
+    </form>
+    <div class="container">
+        <div class="row">
+            {% for event in events %}
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ event.image.url }}" class="card-img-top img-fluid" alt="{{ event.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
+                            </h5>
+                            <p class="card-text">{{ event.start_date|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

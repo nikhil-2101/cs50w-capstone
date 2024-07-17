@@ -1,0 +1,12 @@
+{% for reply in replies %}
+<div class="list-group-item">
+    <p>{{ reply.content }}</p>
+    <small>Posted by {% if reply.author == reply.thread.author %}<strong>{{ reply.author.username }}</strong>{% else %}{{ reply.author.username }}{% endif %} on {{ reply.created_at }}</small>
+    <a href="{% url 'reply_to_reply' reply.thread.id reply.id %}" class="btn btn-secondary btn-sm">Reply</a>
+    {% if reply.children.exists %}
+    <div class="ml-4">
+        {% include 'events/_reply.html' with replies=reply.children.all %}
+    </div>
+    {% endif %}
+</div>
+{% endfor %}

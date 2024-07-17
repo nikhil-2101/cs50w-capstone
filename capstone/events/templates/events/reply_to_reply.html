@@ -1,0 +1,13 @@
+{% extends 'events/layout.html' %}
+{% load static %}
+
+{% block title %}Reply to {{ parent_reply.author.username }} - EasyTicket{% endblock %}
+
+{% block content %}
+<h2>Reply to {{ parent_reply.author.username }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

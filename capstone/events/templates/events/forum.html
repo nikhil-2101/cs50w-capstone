@@ -1,0 +1,82 @@
+{% extends 'events/layout.html' %}
+{% load static %}
+
+{% block title %}Forum - EasyTicket{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-12">
+            <form method="get" action="{% url 'forum' %}">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search threads..." value="{{ query }}">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                    {% if query %}
+                        <a href="{% url 'forum' %}" class="btn btn-secondary">Clear</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+    <a href="{% url 'new_thread' %}" class="btn btn-primary mt-3">Create New Thread</a>
+
+
+    {% if query %}
+        <h2>Results for "{{ query }}"</h2>
+        
+        <h3>Threads with keyword in title or content:</h3>
+        {% if threads_with_keyword %}
+            <div class="row">
+                {% for thread in threads_with_keyword %}
+                    <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title"><a href="{% url 'thread_detail' thread.id %}">{{ thread.title }}</a></h3>
+                                <p class="card-text">{{ thread.content|truncatewords:30 }}</p>
+                                <p class="card-text"><small class="text-muted">Posted by {{ thread.author.username }} on {{ thread.created_at }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No threads found.</p>
+        {% endif %}
+
+        <h3>Threads with keyword in replies:</h3>
+        {% if threads_with_keyword_in_replies %}
+            <div class="row">
+                {% for thread in threads_with_keyword_in_replies %}
+                    <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title"><a href="{% url 'thread_detail' thread.id %}">{{ thread.title }}</a></h3>
+                                <p class="card-text">{{ thread.content|truncatewords:30 }}</p>
+                                <p class="card-text"><small class="text-muted">Posted by {{ thread.author.username }} on {{ thread.created_at }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No threads found.</p>
+        {% endif %}
+
+    {% else %}
+        <h2>All Threads</h2>
+        <div class="row">
+            {% for thread in threads_with_keyword %}
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="card-title"><a href="{% url 'thread_detail' thread.id %}">{{ thread.title }}</a></h3>
+                            <p class="card-text">{{ thread.content|truncatewords:30 }}</p>
+                            <p class="card-text"><small class="text-muted">Posted by {{ thread.author.username }} on {{ thread.created_at }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

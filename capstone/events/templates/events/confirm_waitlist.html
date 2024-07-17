@@ -1,0 +1,12 @@
+{% extends 'events/layout.html' %}
+{% block title %}Confirm Waitlist - {{ event.title }}{% endblock %}
+{% block content %}
+    <h2>Event Waitlist</h2>
+    <p>You are first on the waitlist for <strong>{{ event.title }}</strong>.</p>
+    <p>Do you want to proceed to the payment page?</p>
+    <form method="post" action="{% url 'process_waitlist' event_id=event.id %}">
+        {% csrf_token %}
+        <button type="submit" name="proceed" value="true">Proceed to Payment</button>
+        <a href="{% url 'event_detail' event_id=event.id %}">No, Return to Event Details</a>
+    </form>
+{% endblock %}

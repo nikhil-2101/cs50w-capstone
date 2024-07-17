@@ -1,0 +1,46 @@
+{% extends 'events/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Organizer Profile - {{ profile_user.first_name }} {{ profile_user.last_name }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ profile_user.first_name }} {{ profile_user.last_name }}'s Profile</h1>
+
+    {% if user_profile.profile_picture %}
+        <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture" style="max-width: 100px; max-height: 100px;">
+    {% else %}
+        <p>No profile picture uploaded.</p>
+    {% endif %}
+    <p>Email: {{ profile_user.email }}</p>
+    <p>Name: {{ profile_user.first_name }} {{ profile_user.last_name }}</p>
+    <p>Bio: {{ user_profile.bio }}</p>
+
+    <h3>Events Organized:</h3>
+    <div class="row">
+        {% for event in events_organized %}
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <img src="{{ event.image.url }}" class="card-img-top img-fluid" alt="{{ event.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
+                        </h5>
+                        <p class="card-text">{{ event.start_date|date:"F d, Y" }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                </div><div class="row">
+            {% endif %}
+        {% empty %}
+            <div class="col">
+                <p>No events organized yet.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

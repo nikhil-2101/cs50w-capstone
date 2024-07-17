@@ -1,0 +1,24 @@
+{% extends 'events/layout.html' %}
+{% load static %}
+
+{% block title %}Edit Profile - EasyTicket{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Edit Profile</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <div class="form-group">
+            <small class="form-text text-muted">Existing categories that you can type into keywords: 
+                {% for category_key, category_name in categories %}
+                    <span class="badge badge-primary">{{ category_name }}</span>
+                {% endfor %}
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    
+</div>
+{% endblock %}

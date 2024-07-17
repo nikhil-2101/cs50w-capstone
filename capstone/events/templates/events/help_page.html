@@ -1,0 +1,52 @@
+{% extends 'events/layout.html' %}
+{% load static %}
+
+{% block title %}Help - Event Management{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Help Page</h2>
+    
+    <section id="overview">
+        <h3>Overview</h3>
+        <p>Welcome to the help page of EasyTicket. Here you can find useful information and FAQs to help you navigate through our platform.</p>
+    </section>
+
+    <section id="faqs">
+        <h3>Frequently Asked Questions</h3>
+
+        <div class="faq-item">
+            <h4>How do I create an event?</h4>
+            <p>To create an event, go to the dashboard and click on 'Create Event'. Fill in the required details such as event title, description, date, and location.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Can I edit my event after creating it?</h4>
+            <p>Yes, you can edit your event details any time before the event starts. Go to the event detail page and click on 'Edit Event'.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>How do I book tickets for an event?</h4>
+            <p>On the event detail page, select the date and click 'Book a Seat'. Fill in the number of seats and proceed to payment.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>What payment methods are accepted?</h4>
+            <p>We accept Visa and MasterCard.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h4>How do I save my eticket?</h4>
+            <p>Click on Ctrl-P/Cmd-P when you are in your eticket page to save it to your device by changing your destination to Save as PDF! Alternatively, you can screenshot your page. Do ensure that the QR code can be seen!</p>
+        </div>
+        
+
+    </section>
+
+    <section id="contact-support">
+        <h3>Contact Support</h3>
+        <p>If you need further assistance or have any questions not covered here, feel free to contact our support team at <a href="mailto:example@example.com">example@example.com</a>.</p>
+    </section>
+
+</div>
+{% endblock %}

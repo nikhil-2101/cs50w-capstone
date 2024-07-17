@@ -1,0 +1,33 @@
+{% extends 'events/layout.html' %}
+{% block title %}For You - EasyTicket{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>For You</h2>
+
+    <div class="row">
+        {% for event, matched_keywords in events_with_keywords %}
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card h-100">
+                <img src="{{ event.image.url }}" class="card-img-top img-fluid" alt="{{ event.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
+                    </h5>
+                    <p class="card-text">{{ event.start_date|date:"F d, Y" }}</p>
+
+                    <div>
+                        <strong>Matched Keywords:</strong> {{ matched_keywords }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No events matched your interests.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

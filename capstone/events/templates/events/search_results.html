@@ -1,0 +1,28 @@
+{% extends 'events/layout.html' %}
+
+{% block title %}Search Results - EasyTicket{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for event in events %}
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ event.image.url }}" class="card-img-top img-fluid" alt="{{ event.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
+                            </h5>
+                            <p class="card-text">{{ event.description|truncatewords:20 }}</p>
+                            <p class="card-text"><small class="text-muted">{{ event.date|date:"F j, Y" }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p>No events found.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
